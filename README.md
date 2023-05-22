@@ -2,7 +2,8 @@
 * `npm install`
 * `npm run dev` 
 
-![](demo.gif)
+## [Check the Demo](https://pulkitsharma07.github.io/svelte-tic-tac-toe/)
+
 
 This project was created using `npm init vite` with the `Svelte` template.
 
