@@ -2,10 +2,10 @@
 * `npm install`
 * `npm run dev` 
 
-## [Check the Demo](https://pulkitsharma07.github.io/svelte-tic-tac-toe/)
+## [Link For The Demo](https://pulkitsharma07.github.io/svelte-tic-tac-toe/)
 
-
-This project was created using `npm init vite` with the `Svelte` template.
+* This project was created using `npm init vite` with the `Svelte` template.
+* Game logic can be added to `./src/lib/GameLogic.js`
 
 ## Recommended IDE Setup
 
