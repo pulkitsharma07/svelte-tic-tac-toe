@@ -1,12 +1,28 @@
 <script>
     import Cell from './Cell.svelte'
     import GameLogic from './GameLogic';
+    import { fade } from "svelte/transition";
 
-    let size = 500;
+    let size = 300;
     let num_rows = 3;
     let num_columns = 3;
     let currentMove = "X";
+
+    let yRotation = 0
+    let xRotation = 0
     const game = new GameLogic();
+
+    let mousemove = (e) => {
+        const x = e.clientX;
+        const y = e.clientY;
+
+        const middleX = window.innerWidth / 2;
+        const middleY = window.innerHeight / 2;
+
+        yRotation = ((x - middleX) / middleX) * 50;
+        xRotation = -1 * ((y - middleY) / middleY) * 10;
+    }
+
 
     let cellConfig = {
         width: (size * 1.0) / num_columns,
@@ -26,12 +42,13 @@
             id: 0,
             i: 0,
             j: 0,
-            currentMove: ""
+            currentMove: "",
         };
 
         cell.id=id++;
         cell.i=rows.length;
         cell.j=cells.length;
+
 
         // Prepare row
         cells = [...cells, cell]
@@ -62,11 +79,11 @@
 </script>
 
 <h3> Turn for {currentMove}</h3>
-<div style="--size: {size}px" class='board'>
+<div style="--size: {size}px; --yrotation: {yRotation}deg; --xrotation: {xRotation}deg" class='board' transition:fade on:mousemove={mousemove}>
     {#each rows as row}
         <div class='row'>
             {#each row as cell (cell.id) }
-                <Cell {...cell} {currentMove} on:handlemove={handleMove}></Cell>
+                <Cell {...cell} {currentMove} on:handlemove={handleMove} bind:this={cell.ref}></Cell>
             {/each}
         </div>
     {/each}
@@ -74,10 +91,15 @@
 
 <style>
     .board {
+        background: radial-gradient(white, grey);
         border-style: double;
-        border-color: azure;
+        border-color: rgb(40, 115, 115);
         width: var(--size);
         height: var(--size);
+        transform:
+            perspective(5000px)
+            rotateY(var(--yrotation))
+            rotateX(var(--xrotation));
     }
     .row {
         display: flex;
